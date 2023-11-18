@@ -1,0 +1,25 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+}
+
+.input-container, .output-container {
+    display: flex;
+    height: 100;
+}
+
+.input-container {
+    border: solid 1px red;
+    width: 35%;
+}
+
+.output-container {
+    border: solid 1px blue;
+    width: 70%;
+}
