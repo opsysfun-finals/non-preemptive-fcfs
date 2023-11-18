@@ -4,13 +4,15 @@ body, html {
     padding: 0;
 }
 
-body {
+body, .input-container, .output-container {
     display: flex;
+}
+
+body {
     flex-direction: row;
 }
 
 .input-container, .output-container {
-    display: flex;
     height: 100;
 }
 
