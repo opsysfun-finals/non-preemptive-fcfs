@@ -1,10 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200&family=Lexend&display=swap');
-
-h2, label {
-    font-family: "Lexend", sans-serif;
-    color: white;
-}
-
 body, html {
     background-color: #191919;
     height: 100%;
@@ -17,6 +11,35 @@ body {
     flex-direction: column;
 }
 
+
+h2, label, button {
+    font-size: 2em;
+    font-family: "Lexend", sans-serif;
+    color: white;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+label, input {
+    display: block;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+button {
+    background-color: transparent;
+    cursor: pointer;
+    border: solid 1px white;
+    margin-top: 1em;
+}
+
+input {
+    width: 100%;
+    font-size: 1.5em;
+}
+
 .input-container, .output-container {
     background-color: #252525;
     padding: 1%;
@@ -26,6 +49,7 @@ body {
 
 .input-container {
     flex: 1;
+    height: 35%;
 }
 
 .output-container {
