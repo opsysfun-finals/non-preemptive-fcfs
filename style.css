@@ -1,27 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@200&family=Lexend&display=swap');
+
+h2, label {
+    font-family: "Lexend", sans-serif;
+    color: white;
+}
+
 body, html {
+    background-color: #191919;
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-body, .input-container, .output-container {
-    display: flex;
-}
-
 body {
-    flex-direction: row;
+    display: flex;
+    flex-direction: column;
 }
 
 .input-container, .output-container {
-    height: 100;
+    background-color: #252525;
+    padding: 1%;
+    border-radius: 2%;
+    margin: 1%;
 }
 
 .input-container {
-    border: solid 1px red;
-    width: 35%;
+    flex: 1;
 }
 
 .output-container {
-    border: solid 1px blue;
-    width: 70%;
+    flex: 3;
+}
+
+/* Media queries for responsiveness */
+
+@media only screen and (min-width: 768px) {
+    body {
+        flex-direction: row;
+    }
+
+    .input-container, .output-container {
+        margin: 1%;
+    }
 }
