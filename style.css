@@ -6,20 +6,33 @@ body, html {
     padding: 0;
 }
 
-body {
+.nav-bar {
     display: flex;
-    flex-direction: column;
-}
-
-
-h2, label, button {
-    font-size: 2em;
-    font-family: "Lexend", sans-serif;
-    color: white;
+    justify-content: space-between;
+    margin: .2%;
+    padding-left: 1%;
+    padding-right: 1%;
 }
 
 h2 {
     margin-top: 0;
+}
+
+h2, .nav-bar a {
+    margin-bottom: 0;
+}
+
+.main-container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+h2, label, button, .nav-bar a {
+    font-size: 2em;
+    font-family: "Lexend", sans-serif;
+    color: white;
 }
 
 label, input {
@@ -33,6 +46,10 @@ button {
     cursor: pointer;
     border: solid 1px white;
     margin-top: 1em;
+}
+
+.nav-bar a {
+    text-decoration: none;
 }
 
 input {
@@ -54,16 +71,17 @@ input {
 
 .output-container {
     flex: 3;
+    height: 80%;
 }
 
-/* Media queries for responsiveness */
+/* Existing styles above */
 
-@media only screen and (min-width: 768px) {
+@media only screen and (max-width: 767px) {
     body {
-        flex-direction: row;
+        flex-direction: column;
     }
 
     .input-container, .output-container {
-        margin: 1%;
+        margin: 1% 5%; /* Adjust margins for better spacing */
     }
 }
