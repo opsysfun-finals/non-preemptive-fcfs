@@ -35,16 +35,34 @@ function schedule(pair_array) {
     let clock = 0;
     let start_times = [];
     let end_times = [];
-    let waiting_times = [];
-    let turnover_times = [];
 
-    for (let i = 0; i < pair_array.length; i++) {
-        // Check where to start
-        if (i === 0) {
-            start_times.push(pair_array[i].arrival);
+    let i = 0;
+
+    start_times.push(pair_array[i].arrival);
+    end_times.push(pair_array[i].burst + start_times[i]);
+
+    clock += end_times[i];
+    i++;
+
+    while (i < pair_array.length) {
+        if (pair_array[i].arrival <= clock) {
+            start_times.push(end_times[i-1]);
+            end_times.push(pair_array[i].burst + start_times[i]);
+        } else {
+            console.log(pair_array[i].arrival - clock);
+            start_times.push(end_times[i-1] + (pair_array[i].arrival - clock));
+            end_times.push(pair_array[i].burst + start_times[i]);
         }
-
+        clock += end_times[i];
+        i++;
     }
+    console.log("start " +start_times);
+    console.log("end " +end_times);
+
+    return {
+        start_times,
+        end_times,
+    };
 }
 
 function processData(form) {
@@ -63,4 +81,5 @@ function processData(form) {
     
     // This array does not know if it contains idle
     let pair_array = combineArrays(arrival_array, burst_array);
+    schedule(pair_array);
 }
