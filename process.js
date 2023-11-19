@@ -35,16 +35,23 @@ function schedule(pair_array) {
     let clock = 0;
     let start_times = [];
     let end_times = [];
+    let waiting_times = [];
+    let turnover_times = [];
 
+    // Used by while loop below
     let i = 0;
 
+    // Scheduling for first job
     start_times.push(pair_array[i].arrival);
     end_times.push(pair_array[i].burst + start_times[i]);
+    waiting_times.push(start_times[i] - pair_array[i].arrival);
+    turnover_times.push(end_times[i] - pair_array[i].arrival);
 
     clock += end_times[i];
     i++;
 
     while (i < pair_array.length) {
+        // Determine if job arrival is within the current time
         if (pair_array[i].arrival <= clock) {
             start_times.push(end_times[i-1]);
             end_times.push(pair_array[i].burst + start_times[i]);
@@ -53,14 +60,22 @@ function schedule(pair_array) {
             end_times.push(pair_array[i].burst + start_times[i]);
         }
         clock += end_times[i];
+
+        // Solve for waiting and turnover
+        waiting_times.push(start_times[i] - pair_array[i].arrival);
+        turnover_times.push(end_times[i] - pair_array[i].arrival);
         i++;
     }
     console.log("start " +start_times);
     console.log("end " +end_times);
+    console.log("wait "+waiting_times);
+    console.log("twt "+turnover_times);
 
     return {
         start_times,
         end_times,
+        waiting_times,
+        turnover_times,
     };
 }
 
