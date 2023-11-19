@@ -49,7 +49,6 @@ function schedule(pair_array) {
             start_times.push(end_times[i-1]);
             end_times.push(pair_array[i].burst + start_times[i]);
         } else {
-            console.log(pair_array[i].arrival - clock);
             start_times.push(end_times[i-1] + (pair_array[i].arrival - clock));
             end_times.push(pair_array[i].burst + start_times[i]);
         }
