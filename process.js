@@ -24,6 +24,7 @@ function combineArrays(arrival_array, burst_array) {
 
     // Sort array
     pair_array.sort((a,b) => a.arrival - b.arrival);
+    console.log(pair_array[0]);
     return pair_array;
 }
 
@@ -55,11 +56,12 @@ function schedule(pair_array) {
         if (pair_array[i].arrival <= clock) {
             start_times.push(end_times[i-1]);
             end_times.push(pair_array[i].burst + start_times[i]);
+            clock++;
         } else {
             start_times.push(end_times[i-1] + (pair_array[i].arrival - clock));
             end_times.push(pair_array[i].burst + start_times[i]);
+            clock += end_times[i];
         }
-        clock += end_times[i];
 
         // Solve for waiting and turnover
         waiting_times.push(start_times[i] - pair_array[i].arrival);
@@ -79,6 +81,80 @@ function schedule(pair_array) {
     };
 }
 
+function createTable(pair_array, map) {
+    let start_times = map.start_times;
+    let end_times = map.end_times;
+    let wait_times = map.waiting_times; // Change to match the provided key in the returned object
+    let turnover_times = map.turnover_times;
+
+    var table = document.getElementById("outputTable");
+    
+    if (!table) {
+        console.error("Table element not found");
+        return;
+    }
+
+    table.innerHTML = ''; // Clear any existing content within the table
+    
+    // Create table header
+    var headerRow = table.insertRow(0);
+    var headers = ['Arrival Times', 'Burst Times', 'Start Times', 'End Times', 'Waiting Times', 'Turnover Times'];
+
+    for (let i = 0; i < headers.length; i++) {
+        let headerCell = headerRow.insertCell(i);
+        headerCell.textContent = headers[i];
+    }
+
+    // Create table rows with data
+    for (let i = 0; i < start_times.length; i++) {
+        var row = table.insertRow(i + 1);
+        var cells = [pair_array[i].arrival, pair_array[i].burst, start_times[i], end_times[i], wait_times[i], turnover_times[i]];
+
+        for (let j = 0; j < cells.length; j++) {
+            let cell = row.insertCell(j);
+            cell.textContent = cells[j];
+        }
+    }
+}
+
+// FIX THIS
+function createGanttChart(map) {
+    let start_times = map.start_times;
+    let end_times = map.end_times;
+
+    var table = document.getElementById("gnattChart");
+    
+    if (!table) {
+        console.error("Gantt Chart element not found");
+        return;
+    }
+
+    table.innerHTML = ''; // Clear any existing content within the table
+
+    var jobRow = table.insertRow(0);
+    var timeRow = table.insertRow(1);
+
+    for (let i = 0; i < start_times.length; i++) {
+        let jobCell = jobRow.insertCell(i);
+        let timeCell = timeRow.insertCell(i);
+
+        let jobLabel = "J" + (i + 1);
+        let startTime = start_times[i];
+        let endTime = end_times[i];
+
+        jobCell.textContent = jobLabel;
+        jobCell.classList.add('job-cell');
+
+        timeCell.textContent = startTime;
+        timeCell.classList.add('time-cell');
+
+        jobCell.setAttribute('data-start', startTime);
+        jobCell.setAttribute('data-end', endTime);
+        timeCell.setAttribute('data-start', startTime);
+        timeCell.setAttribute('data-end', endTime);
+    }
+}
+
 function processData(form) {
     let x = getArrivalTimes(form);
     let y = getCpuCycles(form);
@@ -95,5 +171,9 @@ function processData(form) {
     
     // This array does not know if it contains idle
     let pair_array = combineArrays(arrival_array, burst_array);
-    schedule(pair_array);
+    console.log(pair_array[0]);
+    let map = schedule(pair_array);
+
+    createTable(pair_array, map);
+    createGanttChart(map);
 }

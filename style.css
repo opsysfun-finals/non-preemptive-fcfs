@@ -28,6 +28,25 @@ h2, .nav-bar a {
     flex-direction: row;
 }
 
+.output-tables {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+#outputTable, #gnattChart{
+    color: white;
+    font-family: "Lexend", sans-serif;
+    border: solid 1px white;
+    border-collapse: collapse;
+    margin: 2%;
+}
+
+th, td {
+    border: 1px solid white;
+}
 
 h2, label, button, .nav-bar a {
     font-size: 2em;
