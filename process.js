@@ -132,9 +132,9 @@ function createTable(pair_array, map) {
         var endCell = endRow.insertCell(i);
         
         if (i === 4) {
-            endCell.textContent = average_wait;
+            endCell.textContent = average_wait.toFixed(2);
         } else if (i === 5) {
-            endCell.textContent = average_turnaround;
+            endCell.textContent = average_turnaround.toFixed(2);
         }
     }
 }
