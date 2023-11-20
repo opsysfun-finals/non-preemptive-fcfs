@@ -86,6 +86,8 @@ function createTable(pair_array, map) {
     let end_times = map.end_times;
     let wait_times = map.waiting_times; // Change to match the provided key in the returned object
     let turnover_times = map.turnover_times;
+    let average_wait = 0;
+    let average_turnaround = 0;    
 
     var table = document.getElementById("outputTable");
     
@@ -110,9 +112,29 @@ function createTable(pair_array, map) {
         var row = table.insertRow(i + 1);
         var cells = [pair_array[i].arrival, pair_array[i].burst, start_times[i], end_times[i], wait_times[i], turnover_times[i]];
 
+        // Sum of waiting and turn around
+        average_wait += wait_times[i];
+        average_turnaround += turnover_times[i];
+
         for (let j = 0; j < cells.length; j++) {
             let cell = row.insertCell(j);
             cell.textContent = cells[j];
+        }
+    }
+
+    average_wait /= wait_times.length;
+    average_turnaround /= turnover_times.length;
+
+    // Append average wait and turn around
+    var endRow = table.insertRow(-1);
+
+    for (let i = 0; i < 6; i++) {
+        var endCell = endRow.insertCell(i);
+        
+        if (i === 4) {
+            endCell.textContent = average_wait;
+        } else if (i === 5) {
+            endCell.textContent = average_turnaround;
         }
     }
 }
